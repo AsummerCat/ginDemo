@@ -22,6 +22,7 @@ func main() {
 		c.String(http.StatusOK, "请求ip:"+c.ClientIP())
 	})
 
+	//注意: :name是映射匹配    使用*name是模糊匹配
 	router.GET("/:name", func(c *gin.Context) {
 		//可通过contxt.Query获取带参数的路由
 		param := c.Param("name")
