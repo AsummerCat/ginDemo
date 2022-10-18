@@ -11,6 +11,8 @@ func main() {
 	router := gin.Default()
 	//限制表单上传大小
 	router.MaxMultipartMemory = 8 << 20
+	//加载模板文件
+	router.LoadHTMLGlob("templates/*")
 
 	//2.绑定路由规则,执行函数
 	otherTest(router)
@@ -35,6 +37,14 @@ func main() {
 		bindGroup.POST("bindJson", bindJson)
 		bindGroup.POST("bindFormData", bindFormData)
 		bindGroup.POST("/:id/:name/:age", bindFormUrl)
+	}
+
+	//5.返回多种数据类型
+	resTypeGroup := router.Group("resType")
+	{
+		resTypeGroup.GET("resJson", resJson)
+		resTypeGroup.GET("resHtml", resHtml)
+		resTypeGroup.GET("x", bindFormUrl)
 	}
 
 	// 默认端口是8080,也可以指定端口 r.Run(":80")
