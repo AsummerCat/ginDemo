@@ -44,11 +44,19 @@ func main() {
 	{
 		resTypeGroup.GET("resJson", resJson)
 		resTypeGroup.GET("resHtml", resHtml)
-		resTypeGroup.GET("x", bindFormUrl)
 	}
 
 	//6.重定向
 	router.GET("/redirectTest", redirectTest)
+
+	//7.同步请求/异步请求
+	syncGroup := router.Group("sync")
+	{
+		//异步
+		syncGroup.GET("async", AsyncTest)
+		//同步
+		syncGroup.GET("sync", syncTest)
+	}
 
 	// 默认端口是8080,也可以指定端口 r.Run(":80")
 	err := router.Run()
