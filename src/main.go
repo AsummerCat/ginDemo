@@ -8,6 +8,9 @@ import (
 func main() {
 	//1.创建默认路由
 	router := gin.Default()
+	//限制表单上传大小
+	router.MaxMultipartMemory = 8 << 20
+
 	//2.绑定路由规则,执行函数
 	router.GET("/", func(c *gin.Context) {
 		//可通过contxt.Query获取带参数的路由
@@ -35,6 +38,19 @@ func main() {
 	//绑定路由规则 不加函数,表示空白页
 	router.GET("/xxxPost")
 	router.PUT("/xxx")
+
+	//这边是文件上传映射集合
+	uploadGroup(router)
+
+	//分组函数
+	uploadGroup := router.Group("upload")
+	{
+		//多文件上传
+		uploadGroup.POST("uploadMultipart", uploadMultipart)
+		//单文件上传
+		uploadGroup.POST("upload", upload)
+	}
+
 	// 3.默认端口是8080,也可以指定端口 r.Run(":80")
 	router.Run()
 }
