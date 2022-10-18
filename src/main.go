@@ -63,6 +63,17 @@ func main() {
 	//8.局部中间件的使用 针对某个映射或者映射组
 	router.GET("/handlerTest", AsyncTest, handlerPortion())
 
+	//9.cookie和session的使用
+	localServerGroup := router.Group("server")
+	{
+		//cookie
+		localServerGroup.GET("getCookie", getCookie)
+		localServerGroup.GET("setCookie", setCookie)
+		//session
+		localServerGroup.GET("setSession", setSession)
+		localServerGroup.GET("getSession", getSession)
+	}
+
 	// 默认端口是8080,也可以指定端口 r.Run(":80")
 	err := router.Run()
 	if err != nil {

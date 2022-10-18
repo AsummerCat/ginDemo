@@ -5,13 +5,6 @@ import (
 	"log"
 )
 
-func uploadGroup(router *gin.Engine) {
-	//多文件上传
-	router.POST("uploadMultipart", uploadMultipart)
-	//单文件上传
-	router.POST("upload", upload)
-}
-
 /*
 多文件上传
 */
