@@ -23,7 +23,6 @@ func getCookie(c *gin.Context) {
 		log.Print("暂未获取到cookie:", err)
 	}
 	fmt.Println(cookie)
-
 }
 
 func setSession(c *gin.Context) {
