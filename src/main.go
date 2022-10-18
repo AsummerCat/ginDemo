@@ -47,6 +47,9 @@ func main() {
 		resTypeGroup.GET("x", bindFormUrl)
 	}
 
+	//6.重定向
+	router.GET("/redirectTest", redirectTest)
+
 	// 默认端口是8080,也可以指定端口 r.Run(":80")
 	err := router.Run()
 	if err != nil {
