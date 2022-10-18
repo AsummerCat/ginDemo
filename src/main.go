@@ -13,6 +13,8 @@ func main() {
 	router.MaxMultipartMemory = 8 << 20
 	//加载模板文件
 	router.LoadHTMLGlob("templates/*")
+	//加载中间件
+	router.Use(handlerAll())
 
 	//2.绑定路由规则,执行函数
 	otherTest(router)
@@ -58,6 +60,9 @@ func main() {
 		syncGroup.GET("sync", syncTest)
 	}
 
+	//8.局部中间件的使用 针对某个映射或者映射组
+	router.GET("/handlerTest", AsyncTest, handlerPortion())
+
 	// 默认端口是8080,也可以指定端口 r.Run(":80")
 	err := router.Run()
 	if err != nil {
@@ -89,7 +94,7 @@ func otherTest(router *gin.Engine) {
 	})
 
 	//注意: :name是映射匹配    使用*name是模糊匹配
-	router.GET("/:name", func(c *gin.Context) {
+	router.GET("/cc/:name", func(c *gin.Context) {
 		//可通过contxt.Query获取带参数的路由
 		param := c.Param("name")
 		//返回浏览器 状态码,输出
